@@ -7,13 +7,14 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import market.habba.entity.base.IdentifiedEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
- * Изображение товара
+ * Категория товара.
  */
 @Entity
 @Getter
@@ -21,22 +22,10 @@ import javax.persistence.ManyToOne;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image extends IdentifiedEntity {
+public class Category extends IdentifiedEntity {
 
-    /**
-     *
-     */
     private String name;
 
-    /**
-     *
-     */
-    boolean isMain;
-
-//    @Lob
-
-    private byte[] data;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 }

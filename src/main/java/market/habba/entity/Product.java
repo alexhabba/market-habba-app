@@ -81,4 +81,10 @@ public class Product extends IdentifiedEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    /**
+     * Информация о купленных товарах.
+     */
+    @OneToMany(mappedBy = "product")
+    private List<Purchase> purchases;
 }

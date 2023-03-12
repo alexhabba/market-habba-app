@@ -9,7 +9,6 @@ import market.habba.entity.base.IdentifiedEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 /**
@@ -24,16 +23,14 @@ import javax.persistence.ManyToOne;
 public class Image extends IdentifiedEntity {
 
     /**
-     *
+     * Наименование картинки.
      */
     private String name;
 
     /**
-     *
+     * true - главная, false - не главная.
      */
     boolean isMain;
-
-//    @Lob
 
     private byte[] data;
 

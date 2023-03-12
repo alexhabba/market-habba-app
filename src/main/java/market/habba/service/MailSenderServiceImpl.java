@@ -16,7 +16,7 @@ public class MailSenderServiceImpl {
 
     public void sendEmail(String toEmail, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("Market-habba<" + EMAIL + ">");
+        message.setFrom("Hab-market<" + EMAIL + ">");
         message.setTo(toEmail);
         message.setText("Welcome to Sweater. Please, visit next link: http://localhost:3000");
         message.setSubject(subject);

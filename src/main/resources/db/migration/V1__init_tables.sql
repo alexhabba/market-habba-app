@@ -34,7 +34,7 @@ CREATE TABLE "product"
     "update_date"      TIMESTAMP     NOT NULL,
     "is_active"        BOOLEAN       NOT NULL,
     CONSTRAINT "product_pk" PRIMARY KEY ("id"),
-    CONSTRAINT "product_category_id_key" FOREIGN KEY ("category_id") REFERENCES "category"("id")
+    CONSTRAINT "product_category_id_key" FOREIGN KEY ("category_id") REFERENCES "category" ("id")
 );
 
 CREATE TABLE image
@@ -45,6 +45,16 @@ CREATE TABLE image
     data       bytea        NOT NULL,
     "is_main"  bool         NOT NULL,
     CONSTRAINT image_pk PRIMARY KEY (id),
-    CONSTRAINT "image_product_id_key" FOREIGN KEY ("product_id") REFERENCES "product"("id")
+    CONSTRAINT "image_product_id_key" FOREIGN KEY ("product_id") REFERENCES "product" ("id")
 );
+
+CREATE TABLE "purchase"
+(
+    "id"          uuid      NOT NULL,
+    "amount"       int       NOT NULL,
+--     "order_id"    uuid      NOT NULL,
+    "product_id"  uuid      NOT NULL,
+    "create_date" TIMESTAMP NOT NULL,
+    CONSTRAINT "purchase_pk" PRIMARY KEY ("id")
+)
 

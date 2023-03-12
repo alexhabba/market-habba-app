@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import market.habba.entity.base.IdentifiedEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +15,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,15 +41,28 @@ public class User extends IdentifiedEntity implements UserDetails {
      */
     private String password;
 
-//    /**
-//     * Телефон пользователя
-//     */
-//    private String phone;
+    /**
+     * Телефон пользователя
+     */
+    private String phone;
+
+    /**
+     * Дата создания записи.
+     */
+    @CreationTimestamp
+    private LocalDateTime createDate;
+
+    /**
+     * Дата обновления записи.
+     */
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles;
 
-//    private List<Order> purchases = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
 //    private List<Show> shows = new ArrayList<>();
 

@@ -40,4 +40,11 @@ public class Purchase extends IdentifiedEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    /**
+     * Информация о заказе.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
+
 }

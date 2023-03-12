@@ -83,7 +83,7 @@ file('config/').listFiles().each {
 	def apiName = it.getName().replace(".yaml", "");
 	def task = tasks.create("openApiGenerate" + apiName.capitalize(), GenerateTask.class, {
 		generatorName = "spring"
-		inputSpec = "$rootDir/config/market_habba_v0.yaml"
+		inputSpec = "$rootDir/config/auth_v0.yaml"
 		outputDir = "$buildDir/generated"
 		apiPackage = "market.habba.api"
 		modelPackage = "market.habba.model"

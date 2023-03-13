@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-public class SuperAdminApiController implements SuperAdminApi {
+public class SuperAdminRestController implements SuperAdminApi {
 
     private final CategoryService categoryService;
 

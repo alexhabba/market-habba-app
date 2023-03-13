@@ -1,6 +1,7 @@
-package market.habba.service;
+package market.habba.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import market.habba.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,8 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-//        return userService.getUserByEmail(userName);
-        return null;
+        return userService.getUserByEmail(userName);
     }
 
 }

@@ -1,8 +1,9 @@
-package market.habba.service;
+package market.habba.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import market.habba.entity.User;
 import market.habba.repository.UserRepository;
+import market.habba.service.AuthenticationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

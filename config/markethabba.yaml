@@ -13,6 +13,8 @@ tags:
     description: Admin
   - name: SuperAdmin
     description: SuperAdmin
+  - name: User
+    description: User
 
 paths:
   /api/user/login:
@@ -167,6 +169,30 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
 
+  /categories:
+    get:
+      description: Получение списка категорий
+      tags:
+        - User
+      summary: Получение списка категорий
+      operationId: getCategories
+      responses:
+        200:
+          description: описание
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
 components:
   schemas:
     ProductDto:
@@ -194,6 +220,9 @@ components:
       description: Категория товара
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
 

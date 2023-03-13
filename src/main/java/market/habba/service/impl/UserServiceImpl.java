@@ -1,10 +1,11 @@
-package market.habba.service;
+package market.habba.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import market.habba.entity.Role;
 import market.habba.entity.User;
 import market.habba.model.UserRequestDto;
 import market.habba.repository.UserRepository;
+import market.habba.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

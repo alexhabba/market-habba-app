@@ -1,4 +1,4 @@
-package market.habba.service;
+package market.habba.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

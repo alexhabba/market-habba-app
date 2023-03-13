@@ -1,38 +1,17 @@
 package market.habba.service;
 
-import lombok.RequiredArgsConstructor;
-import market.habba.entity.Image;
-import market.habba.repository.ImageRepository;
-import market.habba.util.ImageUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class ImageService {
+/**
+ * Сервис для работы с изображениями.
+ */
+public interface ImageService {
 
-    private final ImageRepository repository;
+    void uploadImage(MultipartFile image, String productName);
 
-    public String uploadImage(MultipartFile file) throws IOException {
+    void uploadImages(List<MultipartFile> images, String productName);
 
-        Image image = Image.builder()
-                .name(file.getOriginalFilename())
-                .data(ImageUtils.compressImage(file.getBytes()))
-                .build();
 
-        Image save = repository.save(image);
-
-        if (save != null) {
-            return "file uploaded successfully : " + file.getOriginalFilename();
-        }
-        return null;
-    }
-
-//    public byte[] downloadImage(String fileName){
-//        Optional<Image> dbImageData = repository.findByName(fileName);
-//        byte[] images=ImageUtils.decompressImage(dbImageData.get().getImageData());
-//        return null;
-//    }
 }

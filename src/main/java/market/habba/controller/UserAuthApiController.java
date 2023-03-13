@@ -6,7 +6,7 @@ import market.habba.entity.User;
 import market.habba.model.UserRequestDto;
 import market.habba.model.UserTokenDto;
 import market.habba.security.JwtTokenProvider;
-import market.habba.service.MailSenderServiceImpl;
+import market.habba.service.impl.MailSenderServiceImpl;
 import market.habba.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

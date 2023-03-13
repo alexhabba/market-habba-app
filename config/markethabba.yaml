@@ -9,6 +9,8 @@ servers:
 tags:
   - name: UserAuth
     description: UserAuth
+  - name: Admin
+    description: Admin
 
 paths:
   /api/user/login:
@@ -67,9 +69,85 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
 
+  /admin/add-product:
+    post:
+      description: Добавление нового товара
+      tags:
+        - Admin
+      summary: Добавление нового товара
+      operationId: addProduct
+      requestBody:
+        description: Бинарное содержимое файлов
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDto'
+      responses:
+        200:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
+  /admin/add-images:
+    post:
+      description: Добавление изображений
+      tags:
+        - Admin
+      summary: Добавление изображений
+      operationId: addImages
+      requestBody:
+        description: Бинарное содержимое файлов
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productName:
+                  description: Наименование товара
+                  type: string
+                images:
+                  description: Список изображений товара
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        200:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTokenDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
 
 components:
   schemas:
+    ProductDto:
+      description: ProductDto
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
     UserRequestDto:
       description: UserRequestDto
       type: object

@@ -135,9 +135,17 @@ components:
       description: ProductDto
       type: object
       properties:
-        email:
+        price:
+          description: Цена товара
+          type: integer
+        name:
+          description: Наименование товара
           type: string
-        password:
+        description:
+          description: Краткое описание товара
+          type: string
+        foolDescription:
+          description: Полное описание товара
           type: string
 
     UserRequestDto:

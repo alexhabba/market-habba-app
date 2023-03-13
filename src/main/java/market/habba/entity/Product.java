@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Информация о продукте.
@@ -54,6 +55,11 @@ public class Product extends IdentifiedEntity {
     private boolean isActive;
 
     /**
+     * Идентификатор пользователя
+     */
+    private UUID userId;
+
+    /**
      * Дата создания записи.
      */
     @CreationTimestamp
@@ -87,4 +93,5 @@ public class Product extends IdentifiedEntity {
      */
     @OneToMany(mappedBy = "product")
     private List<Purchase> purchases;
+
 }

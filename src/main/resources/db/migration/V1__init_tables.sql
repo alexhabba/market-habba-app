@@ -28,14 +28,15 @@ CREATE TABLE "category"
 CREATE TABLE "product"
 (
     "id"               uuid          NOT NULL UNIQUE,
-    "name"             varchar(100)  NOT NULL UNIQUE,
+    "name"             varchar(100)  NOT NULL,
     "price"            integer       NOT NULL,
     "description"      varchar(500)  NOT NULL,
     "full_description" varchar(2000) NOT NULL,
-    "category_id"      uuid          NOT NULL,
+    "is_active"        BOOLEAN       NOT NULL,
+    "user_id"          uuid          NOT NULL,
     "create_date"      TIMESTAMP     NOT NULL,
     "update_date"      TIMESTAMP     NOT NULL,
-    "is_active"        BOOLEAN       NOT NULL,
+    "category_id"      uuid          NOT NULL,
     CONSTRAINT "product_pk" PRIMARY KEY ("id"),
     CONSTRAINT "product_category_id_key" FOREIGN KEY ("category_id") REFERENCES "category" ("id")
 );

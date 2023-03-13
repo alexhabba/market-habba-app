@@ -13,5 +13,5 @@ public interface ProductService {
      * @param dto      Дто продукта
      * @param category Категория продукта
      */
-    void addProduct(ProductDto dto, String category);
+    ProductDto addProduct(ProductDto dto, String category);
 }

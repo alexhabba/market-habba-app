@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import market.habba.api.AdminApi;
 import market.habba.model.ProductDto;
-import market.habba.repository.ImageRepository;
 import market.habba.service.ImageService;
+import market.habba.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminApiController implements AdminApi {
 
+    private final ProductService productService;
     private final ImageService imageService;
 
     @Override
@@ -29,8 +30,8 @@ public class AdminApiController implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Void> addProduct(ProductDto productDto) {
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ProductDto> addProduct(String categoryName, ProductDto productDto) {
+        return ResponseEntity.ok().body(productService.addProduct(productDto, categoryName));
     }
+
 }

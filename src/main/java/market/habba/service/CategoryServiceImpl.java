@@ -3,6 +3,8 @@ package market.habba.service;
 import lombok.RequiredArgsConstructor;
 import market.habba.entity.Category;
 import market.habba.entity.Product;
+import market.habba.mapper.CategoryMapper;
+import market.habba.model.CategoryDto;
 import market.habba.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +12,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
+    private final CategoryMapper categoryMapper;
     private final CategoryRepository categoryRepository;
 
     @Override
-    public void save(String categoryName) {
-        categoryRepository.save(Category.builder()
-                .name(categoryName)
-                .build());
+    public void save(CategoryDto categoryDto) {
+        Category category = categoryMapper.toCategory(categoryDto);
+        categoryRepository.save(category);
     }
 
     @Override

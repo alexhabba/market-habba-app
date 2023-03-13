@@ -3,7 +3,7 @@ info:
   description: Api Documentation for legalpost
   version: '1.2'
   title: Api Documentation
-  contact: {}
+  contact: { }
 servers:
   - url: "http://localhost:8888"
 tags:
@@ -11,6 +11,8 @@ tags:
     description: UserAuth
   - name: Admin
     description: Admin
+  - name: SuperAdmin
+    description: SuperAdmin
 
 paths:
   /api/user/login:
@@ -69,13 +71,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
 
-  /admin/add-product:
+  /admin/add-product/{categoryName}:
     post:
       description: Добавление нового товара
       tags:
         - Admin
       summary: Добавление нового товара
       operationId: addProduct
+      parameters:
+        - name: categoryName
+          in: path
+          description: Категория товара
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Бинарное содержимое файлов
         required: true
@@ -83,6 +92,35 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ProductDto'
+      responses:
+        200:
+          description: успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
+  /super-admin/add-category:
+    post:
+      description: Добавление категории товаров
+      tags:
+        - SuperAdmin
+      summary: Добавление категории товаров
+      operationId: addCategory
+      requestBody:
+        description: Добавление категории товаров
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDto'
       responses:
         200:
           description: успешно
@@ -135,6 +173,10 @@ components:
       description: ProductDto
       type: object
       properties:
+        id:
+          description: Идентификатор товара
+          type: string
+          format: uuid
         price:
           description: Цена товара
           type: integer
@@ -144,8 +186,15 @@ components:
         description:
           description: Краткое описание товара
           type: string
-        foolDescription:
+        fullDescription:
           description: Полное описание товара
+          type: string
+
+    CategoryDto:
+      description: Категория товара
+      type: object
+      properties:
+        name:
           type: string
 
     UserRequestDto:
@@ -163,8 +212,8 @@ components:
       properties:
         token:
           type: string
-#          добавить список ролей
-#        roles:
+    #          добавить список ролей
+    #        roles:
 
     Role:
       type: string

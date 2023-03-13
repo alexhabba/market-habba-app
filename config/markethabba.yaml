@@ -10,11 +10,13 @@ tags:
   - name: UserAuth
     description: UserAuth
   - name: Admin
-    description: Admin
+    description: Ендпоинты для администраторов магазина
   - name: SuperAdmin
     description: SuperAdmin
   - name: User
     description: User
+  - name: Product
+    description: Product
 
 paths:
   /api/user/login:
@@ -136,10 +138,10 @@ paths:
 
   /admin/add-images:
     post:
-      description: Добавление изображений
+      description: Добавление списка изображений
       tags:
         - Admin
-      summary: Добавление изображений
+      summary: Добавление списка изображений
       operationId: addImages
       requestBody:
         description: Бинарное содержимое файлов
@@ -169,6 +171,39 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
 
+  /admin/add-image:
+    post:
+      description: Добавление изображения
+      tags:
+        - Admin
+      summary: Добавление изображения
+      operationId: addImage
+      requestBody:
+        description: Бинарное содержимое файла
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productName:
+                  description: Наименование товара
+                  type: string
+                image:
+                  description: Изображение товара
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: успешно
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
   /categories:
     get:
       description: Получение списка категорий
@@ -185,6 +220,54 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CategoryDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
+  /admin/products:
+    get:
+      description: Получение списка товаров владельца
+      tags:
+        - Admin
+      summary: Получение списка товаров владельца
+      operationId: getProductsOwner
+      responses:
+        200:
+          description: описание
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDto'
+        500:
+          description: описание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+      deprecated: false
+
+  /products:
+    get:
+      description: Получение списка товаров
+      tags:
+        - Product
+      summary: Получение списка товаров
+      operationId: getProducts
+      responses:
+        200:
+          description: описание
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDto'
         500:
           description: описание
           content:
@@ -236,13 +319,15 @@ components:
           type: string
 
     UserTokenDto:
-      description: UserRequestDto
+      description: UserTokenDto
       type: object
       properties:
         token:
           type: string
-    #          добавить список ролей
-    #        roles:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
 
     Role:
       type: string

@@ -2,6 +2,7 @@ package market.habba.service;
 
 import market.habba.entity.Image;
 import market.habba.model.ProductDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface ProductService {
 
     void addImage(Image image, String productName);
 
+    List<ProductDto> getProdacts();
+
+    List<ProductDto> getProdactsOwner();
 }

@@ -51,4 +51,15 @@ public class ProductServiceImpl implements ProductService {
         image.setProduct(product);
         productRepository.saveAndFlush(product);
     }
+
+    @Override
+    public List<ProductDto> getProdacts() {
+        return productMapper.toProductDtoList(productRepository.findAll());
+    }
+
+    @Override
+    public List<ProductDto> getProdactsOwner() {
+        UUID userId = authenticationService.getUserId();
+        return productMapper.toProductDtoList(productRepository.findByUserId(userId));
+    }
 }

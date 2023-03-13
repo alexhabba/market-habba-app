@@ -21,6 +21,12 @@ public class AdminRestController implements AdminApi {
     private final ImageService imageService;
 
     @Override
+    public ResponseEntity<Void> addImage(String productName, MultipartFile image) {
+        imageService.uploadImage(image, productName);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
     public ResponseEntity<Void> addImages(String productName, List<MultipartFile> images) {
         imageService.uploadImages(images, productName);
         return ResponseEntity.ok().build();
@@ -29,6 +35,11 @@ public class AdminRestController implements AdminApi {
     @Override
     public ResponseEntity<ProductDto> addProduct(String categoryName, ProductDto productDto) {
         return ResponseEntity.ok().body(productService.addProduct(productDto, categoryName));
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getProductsOwner() {
+        return ResponseEntity.ok(productService.getProdactsOwner());
     }
 
 }

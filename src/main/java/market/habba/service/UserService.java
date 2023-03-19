@@ -20,5 +20,5 @@ public interface UserService {
      *
      * @param userRequestDto Дто пользователя
      */
-    void addNewUser(UserRequestDto userRequestDto);
+    User addNewUser(UserRequestDto userRequestDto);
 }

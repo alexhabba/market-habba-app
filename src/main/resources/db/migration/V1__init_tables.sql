@@ -1,7 +1,7 @@
 create table "user"
 (
     id          uuid      not null,
-    email       varchar(255),
+    email       varchar(255) UNIQUE,
     password    varchar(255),
     phone       varchar(10),
     create_date TIMESTAMP NOT NULL,

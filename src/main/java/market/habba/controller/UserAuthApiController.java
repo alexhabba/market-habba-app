@@ -3,6 +3,7 @@ package market.habba.controller;
 import lombok.RequiredArgsConstructor;
 import market.habba.api.UserAuthApi;
 import market.habba.entity.User;
+import market.habba.model.Role;
 import market.habba.model.UserRequestDto;
 import market.habba.model.UserTokenDto;
 import market.habba.security.JwtTokenProvider;
@@ -15,8 +16,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -31,11 +35,8 @@ public class UserAuthApiController implements UserAuthApi {
     private final MailSenderServiceImpl mailSenderService;
 
     @Override
-    public ResponseEntity<UserTokenDto> authorizationUser(UserRequestDto userRequestDto) {
-        mailSenderService.sendEmail("jovew95155@jobsfeel.com", "Вам необходимо зарегаться", "this is body");
-
-        System.out.println("send email");
-        System.out.println("*******************************");
+    public ResponseEntity<UserTokenDto> authenticationUser(UserRequestDto userRequestDto) {
+        //todo вынести логику в сервис
         try {
             String email = userRequestDto.getEmail();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, userRequestDto.getPassword()));
@@ -45,10 +46,10 @@ public class UserAuthApiController implements UserAuthApi {
                 throw new UsernameNotFoundException("User with email: " + email + " not found");
             }
 
-//            String token = jwtTokenProvider.createToken(email, user.getRoles());
+            String token = jwtTokenProvider.createToken(email, user.getRoles());
 
-            return ResponseEntity.ok(new UserTokenDto().token(null));
-//            return ResponseEntity.ok(new UserTokenDto().token(token));
+            String name = user.getRoles().get(0).getName().name();
+            return ResponseEntity.ok(new UserTokenDto().token(token).roles(List.of(Role.fromValue(name))));
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

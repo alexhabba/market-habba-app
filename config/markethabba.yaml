@@ -19,13 +19,13 @@ tags:
     description: Product
 
 paths:
-  /api/user/login:
+  /user/login:
     post:
-      description: описание
+      description: Аутентификация пользователя
       tags:
         - UserAuth
-      summary: Запрос проверки входящего платежа
-      operationId: authorizationUser
+      summary: Аутентификация пользователя
+      operationId: authenticationUser
       requestBody:
         required: true
         content:
@@ -47,12 +47,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
       deprecated: false
 
-  /api/user/registration:
+  /user/registration:
     post:
-      description: описание
+      description: Регистрация пользователя
       tags:
         - UserAuth
-      summary: Запрос проверки входящего платежа
+      summary: Регистрация пользователя
       operationId: registrationUser
       requestBody:
         required: true

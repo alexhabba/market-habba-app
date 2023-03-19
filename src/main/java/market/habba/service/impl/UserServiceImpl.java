@@ -3,10 +3,10 @@ package market.habba.service.impl;
 import lombok.RequiredArgsConstructor;
 import market.habba.entity.Role;
 import market.habba.entity.User;
+import market.habba.mapper.UserMapper;
 import market.habba.model.UserRequestDto;
 import market.habba.repository.UserRepository;
 import market.habba.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,9 @@ import static market.habba.entity.enums.RoleEnum.USER;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final MailSenderServiceImpl mailSenderService;
 
     @Override
     public User getUserByEmail(String email) {
@@ -27,15 +29,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewUser(UserRequestDto userRequestDto) {
-        boolean empty = StringUtils.isEmpty("");
+    public User addNewUser(UserRequestDto userRequestDto) {
+        //todo реализовать отправку на почту подтверждение почты
+        // и добавить проверку на существующий e-mail
+        mailSenderService.sendEmail(userRequestDto.getEmail(), "Вам необходимо зарегаться", "this is body");
+
+
         Role role = Role.builder().name(USER).build();
-//        User user = User.builder()
-//                .password(userRequestDto.getPassword())
-//                .email(userRequestDto.getEmail())
-//                .roles(List.of(role))
-//                .build();
-//        role.setUser(user);
-//        userRepository.save(user);
+        User user = userMapper.toUser(userRequestDto);
+        user.setRoles(List.of(role));
+        role.setUser(user);
+        return userRepository.save(user);
     }
 }

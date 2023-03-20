@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
         // и добавить проверку на существующий e-mail
         mailSenderService.sendEmail(userRequestDto.getEmail(), "Вам необходимо зарегаться", "this is body");
 
-
         Role role = Role.builder().name(USER).build();
         User user = userMapper.toUser(userRequestDto);
         user.setRoles(List.of(role));

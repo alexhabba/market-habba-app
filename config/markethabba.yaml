@@ -334,7 +334,7 @@ components:
       enum:
         - USER
         - ADMIN
-        - MANAGER
+        - SUPER_ADMIN
 
     ResultDto:
       title: ResultDto
